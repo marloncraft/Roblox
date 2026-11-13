@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ========================================================================= -->
+    <!-- 1. TÍTULO DA ABA DO NAVEGADOR (Mude o nome que aparece na aba lá em cima) -->
+    <!-- ========================================================================= -->
+    <title>Marlon Craft | Tutoriais & Scripts Roblox Studio</title>
+
+    <style>
+        /* ========================================================================= */
+        /* CORES DO SITE (Se quiser mudar o tema escuro ou a cor de destaque)        */
+        /* ========================================================================= */
+        :root {
+            --bg-fundo: #0f111a;          /* Cor de fundo principal */
+            --bg-cartao: #1a1d2d;         /* Cor dos blocos de aula */
+            --bg-codigo: #090a0f;         /* Cor da caixa onde fica o script Lua */
+            --cor-destaque: #00b06f;      /* Verde estilo Roblox (Mude para azul/roxo se quiser) */
+            --cor-destaque-hover: #00d486;
+            --texto-principal: #ffffff;
+            --texto-secundario: #a0a8c0;
+            --borda: #2a2f45;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-fundo);
+            color: var(--texto-principal);
+            line-height: 1.6;
+        }
+
+        /* MENU SUPERIOR */
+        header {
+            background-color: var(--bg-cartao);
+            border-bottom: 2px solid var(--borda);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--texto-principal);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--cor-destaque);
+        }
+
+        nav a {
+            color: var(--texto-secundario);
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--cor-destaque);
+        }
+
+        /* BANNER PRINCIPAL (HERO) */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, rgba(0,176,111,0.12) 0%, rgba(15,17,26,1) 100%);
+            border-bottom: 1px solid var(--borda);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: var(--texto-secundario);
+            max-width: 650px;
+            margin: 0 auto 25px auto;
+            font-size: 1.1rem;
+        }
+
+        .btn-principal {
+            background-color: var(--cor-destaque);
+            color: #000;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .btn-principal:hover {
+            background-color: var(--cor-destaque-hover);
+            transform: translateY(-2px);
+        }
+
+        /* CONTAINER DAS AULAS */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .titulo-secao {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--cor-destaque);
+            padding-left: 15px;
+        }
+
+        /* CARTÃO DE CADA AULA */
+        .card-aula {
+            background-color: var(--bg-cartao);
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .tag-aula {
+            background-color: rgba(0, 176, 111, 0.2);
+            color: var(--cor-destaque);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .card-aula h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card-aula p {
+            color: var(--texto-secundario);
+            margin-bottom: 15px;
+        }
+
+        .onde-colocar {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            border-left: 3px solid #f1c40f;
+        }
+
+        /* CAIXA DE CÓDIGO LUA + BOTÃO COPIAR */
+        .code-wrapper {
+            position: relative;
+            background-color: var(--bg-codigo);
+            border: 1px solid var(--borda);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background-color: #131622;
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--borda);
+            font-size: 0.85rem;
+            color: var(--texto-secundario);
+        }
+
+        .btn-copiar {
+            background-color: var(--cor-destaque);
+            color: #000;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .btn-copiar:hover {
+            background-color: var(--cor-destaque-hover);
+        }
+
+        pre {
+            padding: 15px;
+            overflow-x: auto;
+            color: #a6e22e;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+
+        /* RODAPÉ */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--borda);
+            color: var(--texto-secundario);
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================================= -->
+    <!-- 2. CABEÇALHO E MENU DO SITE (Mude o nome da sua marca e os links aqui)    -->
+    <!-- ========================================================================= -->
+    <header>
+        <a href="#" class="logo">MARLON <span>CRAFT</span></a>
+        <nav>
+            <a href="#aulas">Aulas & Scripts</a>
+            <!-- AQUI VOCÊ COLOCA O LINK DO SEU CANAL DO YOUTUBE OU PERFIL DO ROBLOX -->
+            <a href="https://www.youtube.com" target="_blank">Canal no YouTube</a>
+        </nav>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- 3. BANNER DE BOAS-VINDAS (Mude o título grande e a descrição inicial)     -->
+    <!-- ========================================================================= -->
+    <section class="hero">
+        <h1>Scripts & Tutoriais de Roblox Studio</h1>
+        <p>Aprenda passo a passo a criar sistemas completos no seu jogo. Copie os códigos prontos, estude a lógica em Lua e evolua seus mapas!</p>
+        <a href="#aulas" class="btn-principal">Ver Aulas Disponíveis</a>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 4. ÁREA DAS AULAS (É AQUI QUE VOCÊ VAI ADICIONAR NOVOS SCRIPTS NO FUTURO) -->
+    <!-- ========================================================================= -->
+    <main class="container" id="aulas">
+        <h2 class="titulo-secao">Biblioteca de Aulas & Códigos</h2>
+
+        <!-- ==================== INÍCIO DA AULA 01 ==================== -->
+        <!-- DICA: Para criar a Aula 04 no futuro, copie daqui até "FIM DA AULA 01" e cole lá embaixo! -->
+        <article class="card-aula">
+            <span class="tag-aula">AULA 01 • LEADERSTATS</span>
+            
+            <!-- AQUI VOCÊ MUDA O TÍTULO DA AULA -->
+            <h3>Barra de Pontos e Moedas (Leaderboard)</h3>
+            
+            <!-- AQUI VOCÊ MUDA A EXPLICAÇÃO DA AULA -->
+            <p>Cria a tabela no canto superior direito da tela do jogador para contar pontos, moedas ou fases concluídas.</p>
+            
+            <!-- AQUI VOCÊ INDICA ONDE COLOCAR O SCRIPT NO ROBLOX STUDIO -->
+            <div class="onde-colocar">
+                <strong>Onde colocar no Roblox Studio:</strong> Crie um <code>Script</code> dentro de <strong>ServerScriptService</strong>.
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span>Script Lua</span>
+                    <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar Código</button>
+                </div>
+                <!-- AQUI VOCÊ COLA O SEU CÓDIGO LUA (Sempre entre <pre><code> e </code></pre>) -->
+<pre><code>game.Players.PlayerAdded:Connect(function(player)
+    -- Cria a pasta principal obrigatória chamada leaderstats
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
+    leaderstats.Parent = player
+
+    -- Cria o contador de Pontos
+    local pontos = Instance.new("IntValue")
+    pontos.Name = "Pontos"
+    pontos.Value = 0 -- Valor inicial
+    pontos.Parent = leaderstats
+end)</code></pre>
+            </div>
+        </article>
+        <!-- ==================== FIM DA AULA 01 ==================== -->
+
+
+        <!-- ==================== INÍCIO DA AULA 02 ==================== -->
+        <article class="card-aula">
+            <span class="tag-aula">AULA 02 • INTERFACE (GUI)</span>
+            
+            <!-- AQUI VOCÊ MUDA O TÍTULO DA AULA -->
+            <h3>Barra de Vida Personalizada na Tela</h3>
+            
+            <!-- AQUI VOCÊ MUDA A EXPLICAÇÃO DA AULA -->
+            <p>Faz uma barra vermelha/verde diminuir suavemente na tela conforme o personagem leva dano no jogo.</p>
+            
+            <div class="onde-colocar">
+                <strong>Onde colocar no Roblox Studio:</strong> Crie uma <code>ScreenGui</code> em <strong>StarterGui</strong>, adicione um <code>Frame</code> (Fundo) e dentro dele outro <code>Frame</code> (BarraVerde). Coloque um <code>LocalScript</code> dentro da BarraVerde.
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span>LocalScript Lua</span>
+                    <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar Código</button>
+                </div>
+                <!-- AQUI VOCÊ COLA O SEU CÓDIGO LUA -->
+<pre><code>local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local barraVida = script.Parent
+
+-- Atualiza o tamanho da barra sempre que a vida mudar
+humanoid.HealthChanged:Connect(function(vidaAtual)
+    local porcentagem = vidaAtual / humanoid.MaxHealth
+    barraVida:TweenSize(
+        UDim2.new(porcentagem, 0, 1, 0),
+        Enum.EasingDirection.Out,
+        Enum.EasingStyle.Quad,
+        0.2,
+        true
+    )
+end)</code></pre>
+            </div>
+        </article>
+        <!-- ==================== FIM DA AULA 02 ==================== -->
+
+
+        <!-- ==================== INÍCIO DA AULA 03 ==================== -->
+        <article class="card-aula">
+            <span class="tag-aula">AULA 03 • STRING E TEXTO NA TELA</span>
+            
+            <!-- AQUI VOCÊ MUDA O TÍTULO DA AULA -->
+            <h3>Mostrar Nome do Personagem na Tela usando String</h3>
+            
+            <!-- AQUI VOCÊ MUDA A EXPLICAÇÃO DA AULA -->
+            <p>Usa concatenação de <strong>String</strong> (textos) para pegar o nome do jogador e exibir uma mensagem personalizada em um TextLabel.</p>
+            
+            <div class="onde-colocar">
+                <strong>Onde colocar no Roblox Studio:</strong> Crie uma <code>ScreenGui</code> em <strong>StarterGui</strong>, insira um <code>TextLabel</code> e coloque um <code>LocalScript</code> dentro dele.
+            </div>
+
+            <div class="code-wrapper">
+                <div class="code-header">
+                    <span>LocalScript Lua</span>
+                    <button class="btn-copiar" onclick="copiarCodigo(this)">Copiar Código</button>
+                </div>
+                <!-- AQUI VOCÊ COLA O SEU CÓDIGO LUA -->
+<pre><code>local player = game.Players.LocalPlayer
+local textoTela = script.Parent
+
+-- Pega o nome de exibição (DisplayName) como String
+local nomeJogador = tostring(player.DisplayName)
+
+-- Junta (concatena) textos usando dois pontos (..)
+textoTela.Text = "Jogador: " .. nomeJogador .. " | Nível 1"</code></pre>
+            </div>
+        </article>
+        <!-- ==================== FIM DA AULA 03 ==================== -->
+
+        <!-- ========================================================================= -->
+        <!-- COLE NOVAS AULAS EXATAMENTE ACIMA DESTA LINHA!                            -->
+        <!-- ========================================================================= -->
+
+    </main>
+
+    <!-- ========================================================================= -->
+    <!-- 5. RODAPÉ DO SITE (Mude o texto final da página aqui)                     -->
+    <!-- ========================================================================= -->
+    <footer>
+        <p>© 2026 Marlon Craft - Todos os direitos reservados. Feito para criadores de Roblox Studio.</p>
+    </footer>
+
+    <!-- ========================================================================= -->
+    <!-- FUNÇÃO DO BOTÃO "COPIAR CÓDIGO" (Não precisa mexer aqui)                  -->
+    <!-- ========================================================================= -->
+    <script>
+        function copiarCodigo(botao) {
+            // Encontra o bloco de código logo abaixo do botão clicado
+            const blocoCodigo = botao.parentElement.nextElementSibling.innerText;
+            
+            // Copia para a área de transferência
+            navigator.clipboard.writeText(blocoCodigo).then(() => {
+                const textoOriginal = botao.innerText;
+                botao.innerText = "Copiado! ✔";
+                botao.style.backgroundColor = "#ffffff";
+                
+                // Volta o botão ao normal depois de 2 segundos
+                setTimeout(() => {
+                    botao.innerText = textoOriginal;
+                    botao.style.backgroundColor = "";
+                }, 2000);
+            });
+        }
+    </script>
+
+</body>
+</html>
